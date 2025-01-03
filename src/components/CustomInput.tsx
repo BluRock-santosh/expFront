@@ -1,43 +1,39 @@
-import { Input as ShadcnInput } from "../components/ui/input";
-import { Label } from "../components/ui/label";
-import { UseFormRegister, FieldValues, FieldError } from "react-hook-form";
+import { FieldValues, Path, UseFormRegister } from "react-hook-form";
 
-interface CustomInputProps {
+interface CustomInputProps<T extends FieldValues> {
   label: string;
-  name: string;
+  name: Path<T>; 
   type?: string;
-  placeholder: string;
-  register: UseFormRegister<FieldValues>; 
-  error?: string | FieldError | undefined; 
+  placeholder?: string;
+  register: UseFormRegister<T>;
+  error?: string;
 }
 
-const CustomInput = ({
+function CustomInput<T extends FieldValues>({
   label,
   name,
   type = "text",
   placeholder,
   register,
   error,
-}: CustomInputProps) => {
+}: CustomInputProps<T>) {
   return (
-    <div className="space-y-2">
-      <Label htmlFor={name}>{label}</Label>
-      <ShadcnInput
-        id={name}
+    <div className="space-y-1">
+      <label htmlFor={String(name)} className="block text-sm font-medium">
+        {label}
+      </label>
+      <input
+        id={String(name)}
         type={type}
         placeholder={placeholder}
-        {...(register ? register(name) : {})} 
-        className={`${
-          error ? 'border-red-500' : 'border-gray-300'
-        } border rounded-md p-2 w-full focus:outline-none focus:ring-2 focus:ring-blue-500`} // Adding styles for error state
+        {...register(name)} // `name` now works with Path<T>
+        className={`w-full px-3 py-2 border ${
+          error ? "border-red-500" : "border-gray-300"
+        } rounded focus:outline-none focus:ring-2 focus:ring-primary`}
       />
-      {error && (
-        <p className="text-sm text-red-500">
-          {typeof error === "string" ? error : error?.message}
-        </p>
-      )}
+      {error && <p className="text-sm text-red-500">{error}</p>}
     </div>
   );
-};
+}
 
 export default CustomInput;

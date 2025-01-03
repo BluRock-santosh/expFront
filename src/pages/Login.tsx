@@ -4,7 +4,7 @@ import z from "zod";
 import CustomInput from "../components/CustomInput"; // Import the custom input
 import { Link, useNavigate, useSearchParams } from "react-router-dom";
 import { toast } from "sonner";
-import { useEffect } from "react";
+
 
 // Zod schema for validation
 const LoginSchema = z.object({

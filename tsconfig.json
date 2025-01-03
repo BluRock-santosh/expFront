@@ -8,10 +8,14 @@
       "path": "./tsconfig.node.json"
     }
   ],
+
   "compilerOptions": {
-    "baseUrl": "./src", // Or "." if your components are directly in the root
+    "baseUrl": "./src",
     "paths": {
-      "@/*": ["./*"] // Maps @/ to the baseUrl (src in this case)
-    }
+      "@/*": ["./*"], // This is the most general mapping
+      "@/lib/*": ["lib/*"] // More specific mapping (recommended)
+    },
+    "moduleResolution": "node", // Ensure this is set to node
+    "jsx": "react-jsx"
   }
 }

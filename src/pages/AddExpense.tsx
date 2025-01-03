@@ -71,7 +71,6 @@ const AddExpense = () => {
     }
 
     toast.success("Expense added successfully");
-    onAddExpense(data);
   };
 
   return (
